@@ -24,17 +24,17 @@ public class MemoryVacancyRepository implements VacancyRepository {
 
     private MemoryVacancyRepository() {
         save(new Vacancy(0, "Intern Java Developer", "Знания основ языка java",
-                LocalDateTime.of(2023, Month.NOVEMBER, 8, 12, 30)));
+                LocalDateTime.of(2023, Month.NOVEMBER, 8, 12, 30), true));
         save(new Vacancy(0, "Junior Java Developer", "Знания основ языка java и в наличии гитхаб с тестовыми проектами",
-                LocalDateTime.of(2023, Month.OCTOBER, 8, 12, 30)));
+                LocalDateTime.of(2023, Month.OCTOBER, 8, 12, 30), true));
         save(new Vacancy(0, "Junior+ Java Developer", "Опыт работы от 1 лет",
-                LocalDateTime.of(2023, Month.SEPTEMBER, 8, 12, 30)));
+                LocalDateTime.of(2023, Month.SEPTEMBER, 8, 12, 30), true));
         save(new Vacancy(0, "Middle Java Developer", "Опыт работы от 1-3 лет",
-                LocalDateTime.of(2023, Month.AUGUST, 8, 12, 30)));
+                LocalDateTime.of(2023, Month.AUGUST, 8, 12, 30), true));
         save(new Vacancy(0, "Middle+ Java Developer", "Опыт работы от 3 лет",
-                LocalDateTime.of(2023, Month.NOVEMBER, 8, 12, 30)));
+                LocalDateTime.of(2023, Month.NOVEMBER, 8, 12, 30), true));
         save(new Vacancy(0, "Senior Java Developer", "Опыт работы от 6 лет",
-                LocalDateTime.of(2023, Month.APRIL, 15, 12, 30)));
+                LocalDateTime.of(2023, Month.APRIL, 15, 12, 30), true));
     }
 
     @Override
@@ -52,7 +52,7 @@ public class MemoryVacancyRepository implements VacancyRepository {
     @Override
     public boolean update(Vacancy vacancy) {
         return vacancies.computeIfPresent(vacancy.getId(), (id, oldVacancy) -> new Vacancy(oldVacancy.getId(),
-                vacancy.getTitle(), vacancy.getDescription(), vacancy.getCreationDate())) != null;
+                vacancy.getTitle(), vacancy.getDescription(), vacancy.getCreationDate(), vacancy.getVisible())) != null;
     }
 
     @Override
