@@ -23,17 +23,17 @@ public class MemoryCandidateRepository implements  CandidateRepository {
 
     private MemoryCandidateRepository() {
         save(new Candidate(0, "Фролов Петр Иванович", "Intern Java Developer",
-                LocalDateTime.of(2023, Month.NOVEMBER, 1, 11, 25)));
+                LocalDateTime.of(2023, Month.NOVEMBER, 1, 11, 25), 0));
         save(new Candidate(1, "Белугин Сергей Андреевич", "Junior Java Developer",
-                LocalDateTime.of(2023, Month.OCTOBER, 2, 15, 36)));
+                LocalDateTime.of(2023, Month.OCTOBER, 2, 15, 36), 0));
         save(new Candidate(2, "Дмитрий Анисимов Петрович", "Junior+ Java Developer",
-                LocalDateTime.of(2023, Month.SEPTEMBER, 6, 12, 30)));
+                LocalDateTime.of(2023, Month.SEPTEMBER, 6, 12, 30), 0));
         save(new Candidate(3, "Силкин Евгений Сергеевич", "Middle Java Developer",
-                LocalDateTime.of(2023, Month.AUGUST, 16, 17, 46)));
+                LocalDateTime.of(2023, Month.AUGUST, 16, 17, 46), 0));
         save(new Candidate(4, "Савельев Николай Александрович", "Middle+ Java Developer",
-                LocalDateTime.of(2023, Month.NOVEMBER, 8, 11, 12)));
+                LocalDateTime.of(2023, Month.NOVEMBER, 8, 11, 12), 0));
         save(new Candidate(5, "Цапин Антон Олегович", "Senior Java Developer",
-                LocalDateTime.of(2023, Month.APRIL, 15, 7, 13)));
+                LocalDateTime.of(2023, Month.APRIL, 15, 7, 13), 0));
     }
 
 
@@ -52,7 +52,8 @@ public class MemoryCandidateRepository implements  CandidateRepository {
     @Override
     public boolean update(Candidate candidate) {
         return candidates.computeIfPresent(candidate.getId(), (id, oldCandidate) -> new Candidate(oldCandidate.getId(),
-                candidate.getName(), candidate.getDescription(), candidate.getCreationDate())) != null;
+                candidate.getName(), candidate.getDescription(),
+                candidate.getCreationDate(), candidate.getFileId())) != null;
     }
 
     @Override
