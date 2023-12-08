@@ -52,7 +52,7 @@ public class Sql2oCandidateRepositoryTest {
     }
 
     @AfterEach
-    public void clearVacancies() {
+    public void clearCandidates() {
         var candidates = sql2oCandidateRepository.findAll();
         for (var candidate : candidates) {
             sql2oCandidateRepository.deleteById(candidate.getId());
