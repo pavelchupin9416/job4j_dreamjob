@@ -30,10 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String getRegistrationPage(@ModelAttribute User user, Model model) {
-        user = new User();
-        user.setName("Гость");
-        model.addAttribute("user", user);
+    public String getRegistrationPage() {
         return "users/register";
     }
 
