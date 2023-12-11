@@ -20,7 +20,6 @@ import ru.job4j.dreamjob.service.SimpleCandidateService;
 
 import javax.servlet.http.HttpSession;
 
-@SuppressWarnings("checkstyle:WhitespaceAround")
 @ThreadSafe
 @Controller
 @RequestMapping("/candidates") /* Работать с кандидатами будем по URI /candidates/** */
@@ -28,7 +27,7 @@ public class CandidateController {
     @GuardedBy("this")
     private final CandidateService candidateService;
 
-    public CandidateController(CandidateService candidateService, FileService fileService) {
+    public CandidateController(CandidateService candidateService) {
         this.candidateService = candidateService;
     }
 
