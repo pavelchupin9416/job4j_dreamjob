@@ -47,7 +47,7 @@ public class Sql2oUserRepositoryTest {
     @Test
     public void whenDeleteThenGetEmptyOptional() {
         var user = sql2oUserRepository.save(new User(0, "pavel@mail.ru", "pavel", "12345"));
-        var isDeleted =  sql2oUserRepository.deleteAllUsers();;
+        var isDeleted =  sql2oUserRepository.deleteAllUsers();
         var savedUser = sql2oUserRepository.findByEmailAndPassword("pavel@mail.ru", "12345");
         assertThat(isDeleted).isTrue();
         assertThat(savedUser).isEqualTo(empty());
@@ -57,7 +57,7 @@ public class Sql2oUserRepositoryTest {
     public void whenSaveTwoSameEmail() {
         var user1 = sql2oUserRepository.save(new User(0, "pavel@mail.ru", "pavel", "12345"));
         var user2 = sql2oUserRepository.save(new User(0, "pavel@mail.ru", "pavel", "123"));
-        var savedUser1 = sql2oUserRepository.findByEmailAndPassword("pavel@mail.ru","12345");
+        var savedUser1 = sql2oUserRepository.findByEmailAndPassword("pavel@mail.ru", "12345");
         assertThat(savedUser1).isEqualTo(user1);
         assertThat(user2).isEqualTo(empty());
     }
