@@ -3,6 +3,7 @@ package ru.job4j.dreamjob.controller;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ConcurrentModel;
+import ru.job4j.dreamjob.dto.UserDto;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
@@ -32,22 +33,22 @@ public class UserControllerTest {
 
     @Test
     public void whenPostNewUser() {
-        var user = new User(1, "test@mail.ru", "test", "password");
-        when(userService.save(any())).thenReturn(Optional.of(user));
+        var userDto = new UserDto(1, "test@mail.ru", "test", "password");
+        when(userService.save(any())).thenReturn(Optional.of(userDto));
         var model = new ConcurrentModel();
-        var view = userController.register(user, model);
+        var view = userController.register(userDto, model);
         assertThat(view).isEqualTo("redirect:/index");
     }
 
     @Test
     public void whenPostDuplicateUser() {
-        var user = new User(1, "test@mail.ru", "test", "password");
+        var userDto = new UserDto(1, "test@mail.ru", "test", "password");
         var expectedException = new RuntimeException("Пользователь с такой почтой уже существует");
         when(userService.save(any())).thenReturn(Optional.empty());
         var model = new ConcurrentModel();
-        var view = userController.register(user, model);
+        var view = userController.register(userDto, model);
         var actualException = model.getAttribute("message");
-        assertThat(view).isEqualTo("errors/404");
+        assertThat(view).isEqualTo("users/register");
         assertThat(actualException).isEqualTo(expectedException.getMessage());
     }
 
@@ -59,7 +60,7 @@ public class UserControllerTest {
 
     @Test
     public void whenRequestToLogin() {
-        var user = new User(1, "test@mail.ru", "test", "password");
+        var user = new UserDto(1, "test@mail.ru", "test", "password");
         var request = mock(HttpServletRequest.class);
         var httpSession = mock(HttpSession.class);
         when(request.getSession()).thenReturn(httpSession);
@@ -72,7 +73,7 @@ public class UserControllerTest {
 
     @Test
     public void whenRequestToLoginButWrongLoginOrPassword() {
-        var user = new User(1, "test@mail.ru", "test", "password");
+        var user = new UserDto(1, "test@mail.ru", "test", "password");
         var error = "Почта или пароль введены неверно";
         var request = mock(HttpServletRequest.class);
         when(userService.findByEmailAndPassword(any(String.class), any(String.class))).thenReturn(Optional.empty());

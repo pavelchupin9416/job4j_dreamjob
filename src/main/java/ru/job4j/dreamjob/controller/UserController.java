@@ -1,11 +1,13 @@
 package ru.job4j.dreamjob.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.job4j.dreamjob.dto.UserDto;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
@@ -18,6 +20,7 @@ import ru.job4j.dreamjob.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 @Controller
 @RequestMapping("/users")
@@ -35,8 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute User user, Model model) {
-        var savedUser = userService.save(user);
+    public String register(@ModelAttribute UserDto userDto, Model model) {
+        var savedUser = userService.save(userDto);
         if (savedUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "users/register";
@@ -50,8 +53,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
-        var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
+    public String loginUser(@ModelAttribute UserDto userDto, Model model, HttpServletRequest request) {
+        var userOptional = userService.findByEmailAndPassword(userDto.getEmail(), userDto.getPassword());
         if (userOptional.isEmpty()) {
             model.addAttribute("error", "Почта или пароль введены неверно");
             return "users/login";
